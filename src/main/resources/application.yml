@@ -21,6 +21,18 @@ spring:
     host: 127.0.0.1
     port: 6379
     password:
+  mail:
+    host: smtp.qq.com
+    username: 1136262889@qq.com
+    password: aurkbhaborcxifca
+    properties:
+      mail:
+        smtp:
+         auth: true
+         starttls:
+          enable: true
+          required: true
+
 #fdfs:
 #  so-timeout: 1501
 #  connect-timeout: 601
@@ -36,6 +48,17 @@ ftp:
   username: test
   password: test
   filepath: /home/webapps
+
+  # Swagger界面内容配置
+swagger:
+  title: TMax API接口文档
+  description: TMax Api Documentation
+  version: 1.0.0
+  termsOfServiceUrl: https://www.sscai.club
+  contact:
+    name: niceyoo
+    url: https://www.sscai.club
+    email: apkdream@163.com
 
 
 

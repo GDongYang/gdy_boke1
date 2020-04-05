@@ -8,4 +8,9 @@ public class Constant {
 
     public static final String TOKEN_KEY = "tokenKey";
 
+    /**
+     * 默认注册用户权限
+     */
+    public static final Integer MOREN_USER_ROLE = 1;
+
 }

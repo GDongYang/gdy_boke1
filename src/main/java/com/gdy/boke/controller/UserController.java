@@ -7,12 +7,12 @@ import com.gdy.boke.service.ThemeService;
 import com.gdy.boke.service.UserService;
 import com.gdy.boke.util.CacheUtil;
 import com.gdy.boke.util.CookieUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +21,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Map;
 
+
+@Api(description = "用户中心接口")
 @Controller
 public class UserController extends BaseController{
 
@@ -96,5 +98,42 @@ public class UserController extends BaseController{
         return md;
     }
 
+    /**
+     * 用户注册发送验证码接口
+     */
+    @ApiOperation(value = "用户注册发送验证码", notes="用户注册发送验证码",httpMethod = "POST")
+    @RequestMapping(value = "/user/sendEmailCode",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultData sendEmailCode(@ApiParam(name = "email",required = true,value = "用户邮箱") @RequestParam("email") String email){
+        return  userService.sendEmailCode(email);
+    }
+
+    /**
+     * 用户注册
+     */
+    @ApiOperation(value = "用户注册", notes="用户注册",httpMethod = "POST")
+    @RequestMapping(value = "/user/registUser",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultData registUser(
+            @ApiParam(name = "userName",required = true,value = "用户名")
+            @RequestParam("userName") String userName,
+
+            @ApiParam(name = "password",required = true,value = "密码")
+            @RequestParam("password") String password,
+
+            @ApiParam(name = "realName",required = true,value = "真实姓名")
+            @RequestParam("realName") String realName,
+
+            @ApiParam(name = "userEmail",required = true,value = "邮箱")
+            @RequestParam("userEmail") String userEmail,
+
+            @ApiParam(name = "userTel",required = true,value = "用户电话")
+            @RequestParam("userTel") String userTel,
+
+            @ApiParam(name = "viryCode",required = true,value = "验证码")
+            @RequestParam("viryCode") String viryCode
+    ){
+        return  userService.registUser(userName,password,realName,userEmail,userTel,viryCode);
+    }
 
 }

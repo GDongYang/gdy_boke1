@@ -1,5 +1,7 @@
 package com.gdy.boke.constant;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -8,14 +10,16 @@ import java.io.Serializable;
  * 统一返回结果
  */
 @Data
+@ApiModel("统一返回类型")
 public class ResultData implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty(value="状态码")
     private String code;
-
+    @ApiModelProperty(value="响应信息")
     private String msg;
-
+    @ApiModelProperty(value="响应数据")
     private Object data;
 
     public static ResultData success(Object data) {

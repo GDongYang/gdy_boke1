@@ -1,5 +1,6 @@
 package com.gdy.boke.service;
 
+import com.gdy.boke.constant.ResultData;
 import com.gdy.boke.model.UserInfo;
 
 import java.util.Map;
@@ -17,4 +18,8 @@ public interface UserService {
     public UserInfo findByUserName(String userName);
 
     Map<String,Object> collectIndexData(Map paramMap);
+
+    ResultData sendEmailCode(String email);
+
+    ResultData registUser(String userName, String password, String realName, String userEmail, String userTel, String viryCode);
 }

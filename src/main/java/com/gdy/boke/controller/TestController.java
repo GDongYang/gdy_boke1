@@ -1,13 +1,19 @@
 package com.gdy.boke.controller;
 
+import com.gdy.boke.util.SendMsgUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class TestController {
 
+    @Autowired
+    private SendMsgUtil sendMsgUtil;
+
     @RequestMapping("/test")
     public String test(){
+        sendMsgUtil.sendEmailCode("631710562@qq.com");
         return "testue";
     }
 
