@@ -36,5 +36,4 @@ public class ArticleInfo implements Serializable{
     private Integer viewCount;
     private String articleSim;
 
-
 }

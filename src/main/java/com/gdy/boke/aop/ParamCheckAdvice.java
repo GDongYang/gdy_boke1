@@ -75,7 +75,7 @@ public class ParamCheckAdvice {
     }
 
     public static void main(String[] args) {
-        Object[] arr = {"","andqq","exec"};
+        Object[] arr = {"","andqq",""};
         boolean b = containsInjectionArray(arr,0);
         System.out.println(b);
     }
