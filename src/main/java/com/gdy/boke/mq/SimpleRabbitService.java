@@ -13,6 +13,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.amqp.rabbit.listener.api.ChannelAwareMessageListener;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.amqp.support.converter.SimpleMessageConverter;
 
@@ -20,7 +21,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class SimpleRabbitService implements RabbitmqService {
+public class SimpleRabbitService implements RabbitMQService {
 
     private static final Logger logger = LoggerFactory.getLogger(SimpleRabbitService.class);
     protected static final long DEFAUL_SLEEP_MILLIS = 30L;
@@ -31,7 +32,7 @@ public class SimpleRabbitService implements RabbitmqService {
     private Set<String> declaredExchangeAndQueues;
     private MessageConverter messageConverter;
 
-    public SimpleRabbitService() {
+    public SimpleRabbitService(org.springframework.amqp.rabbit.connection.ConnectionFactory rabbitConnectionFactory, RabbitTemplate rabbitTemplate, RabbitAdmin admin) {
         this.declaredQueues = new HashSet();
         this.declaredExchangeAndQueues = new HashSet();
     }
@@ -51,6 +52,9 @@ public class SimpleRabbitService implements RabbitmqService {
             this.rabbitTemplate.setMessageConverter(this.messageConverter);
         }
 
+    }
+
+    public SimpleRabbitService(org.springframework.amqp.rabbit.connection.ConnectionFactory rabbitConnectionFactory, RabbitTemplate rabbitTemplate, RabbitAdmin admin, Jackson2JsonMessageConverter mc) {
     }
 
     @Override

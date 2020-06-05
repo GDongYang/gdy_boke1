@@ -2,7 +2,7 @@ package com.gdy.boke.controller;
 
 import com.gdy.boke.model.ArticleInfo;
 import com.gdy.boke.mq.RabbitMQMessageTarget;
-import com.gdy.boke.mq.RabbitmqService;
+import com.gdy.boke.mq.RabbitMQService;
 import com.gdy.boke.service.ArticleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,7 @@ import java.util.Map;
 @Controller
 public class ArticleController {
     @Autowired
-    private RabbitmqService rabbitMQService;
+    private RabbitMQService rabbitMQService;
 
     private static final Logger log = LoggerFactory.getLogger(ArticleController.class);
 
