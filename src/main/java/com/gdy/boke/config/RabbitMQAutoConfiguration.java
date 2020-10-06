@@ -1,6 +1,13 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
 package com.gdy.boke.config;
 
-import com.gdy.boke.mq.AutoConsumerBean;
+import java.util.Collection;
+import java.util.Iterator;
+
 import com.gdy.boke.mq.RabbitMQService;
 import com.gdy.boke.mq.RabbitMessageListener;
 import com.gdy.boke.mq.SimpleRabbitService;
@@ -16,9 +23,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.Collection;
-import java.util.Iterator;
 
 @Configuration
 public class RabbitMQAutoConfiguration implements ApplicationContextAware {
@@ -70,12 +74,12 @@ public class RabbitMQAutoConfiguration implements ApplicationContextAware {
     @ConditionalOnExpression("'${calorie.rabbitmq.enter:false}'=='true'")
     public ConnectionFactory rabbitConnectionFactory() {
         if (this.isAli) {
-            //AliyunCredentialsProvider credentialsProvider = new AliyunCredentialsProvider(this.userName, this.password, 1404053829324700L);
+           // AliyunCredentialsProvider credentialsProvider = new AliyunCredentialsProvider(this.userName, this.password, 1404053829324700L);
             com.rabbitmq.client.ConnectionFactory rabbitConnectionFactory = new com.rabbitmq.client.ConnectionFactory();
             rabbitConnectionFactory.setHost(this.host);
             rabbitConnectionFactory.setPort(this.port);
             rabbitConnectionFactory.setVirtualHost(this.vhost);
-            //rabbitConnectionFactory.setCredentialsProvider(credentialsProvider);
+           // rabbitConnectionFactory.setCredentialsProvider(credentialsProvider);
             rabbitConnectionFactory.setAutomaticRecoveryEnabled(true);
             rabbitConnectionFactory.setNetworkRecoveryInterval(5000);
             ConnectionFactory connectionFactory = new CachingConnectionFactory(rabbitConnectionFactory);

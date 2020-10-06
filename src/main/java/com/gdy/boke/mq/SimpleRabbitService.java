@@ -2,30 +2,24 @@ package com.gdy.boke.mq;
 
 import com.alibaba.fastjson.JSON;
 import com.rabbitmq.client.Channel;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-
+import com.rabbitmq.client.ConnectionFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.AmqpException;
-import org.springframework.amqp.core.AcknowledgeMode;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.FanoutExchange;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.MessageProperties;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.amqp.rabbit.listener.api.ChannelAwareMessageListener;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.amqp.support.converter.SimpleMessageConverter;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 public class SimpleRabbitService implements RabbitMQService {
 
@@ -38,7 +32,7 @@ public class SimpleRabbitService implements RabbitMQService {
     private Set<String> declaredExchangeAndQueues;
     private MessageConverter messageConverter;
 
-    public SimpleRabbitService() {
+    public SimpleRabbitService(org.springframework.amqp.rabbit.connection.ConnectionFactory rabbitConnectionFactory, RabbitTemplate rabbitTemplate, RabbitAdmin admin) {
         this.declaredQueues = new HashSet();
         this.declaredExchangeAndQueues = new HashSet();
     }
@@ -58,6 +52,9 @@ public class SimpleRabbitService implements RabbitMQService {
             this.rabbitTemplate.setMessageConverter(this.messageConverter);
         }
 
+    }
+
+    public SimpleRabbitService(org.springframework.amqp.rabbit.connection.ConnectionFactory rabbitConnectionFactory, RabbitTemplate rabbitTemplate, RabbitAdmin admin, Jackson2JsonMessageConverter mc) {
     }
 
     @Override
