@@ -5,7 +5,7 @@
 
 package com.gdy.boke.mq;
 
-public interface RabbitmqService {
+public interface RabbitMQService {
     void send(String queueName, Object data);
 
     void send(RabbitMQMessageTarget target, Object data);

@@ -1,6 +1,5 @@
 package com.gdy.boke.pick;
 
-import java.util.List;
 
 public class Photos {
 
@@ -10,6 +9,14 @@ public class Photos {
 
     private String resultsList;
 
+    @Override
+    public String toString() {
+        return "Photos{" +
+                "total=" + total +
+                ", total_pages=" + total_pages +
+                ", resultsList='" + resultsList + '\'' +
+                '}';
+    }
 
     public Long getTotal() {
         return total;

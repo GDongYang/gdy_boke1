@@ -1,38 +1,42 @@
-package com.gdy.boke.pick;
+package com.gdy.boke.cnn;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.gdy.boke.pick.Photos;
+import com.gdy.boke.pick.Results;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 import java.util.UUID;
 
-public class PickStarter {
+public class CnnPicker {
 
-    //    https://unsplash.com/napi/search/photos?query=china&xp=&per_page=20&page=3
-
-    private static final Integer FIND_PAGE = 10;
-
-    public static void main(String[] args) throws Exception {
-       // parseImgUrl("https://unsplash.com/napi/search?query=girl&xp=&per_page=20\n");
-       // Photos photos = parseImgInfo("girl");
-        parseImgUrl("island",1,0);
-    }
-
-    private static Photos parseImgInfo(String searcheName) throws IOException {
-        String url = "https://unsplash.com/napi/search?query=" + searcheName + "&xp=&per_page=20\n";
+    public static void main(String[] args) throws IOException {
+        String url = "https://search.api.cnn.io/content?q=china&size=10&from=10&page=2";
         URL onlineUrl = new URL(url);
         Document doc = Jsoup.parse(onlineUrl.openConnection().getInputStream(),"utf-8",url);
         String object = doc.text();
         JSONObject jsonObject = JSONObject.parseObject(object);
-        JSONObject photos = JSONObject.parseObject(jsonObject.get("photos").toString());
-        //获取到photosInfo
-        Photos photosInfo = JSONObject.parseObject(photos.toString(), Photos.class);
-        return photosInfo;
+        List<CnnResult> result = JSONArray.parseArray(jsonObject.get("result").toString(), CnnResult.class);
+        System.out.println(result);
+    }
+
+
+
+    private static Photos parseImgInfo(String searcheName) throws IOException {
+        String url = "https://search.api.cnn.io/content?q=china&size=10&from=10&page=2";
+        URL onlineUrl = new URL(url);
+        Document doc = Jsoup.parse(onlineUrl.openConnection().getInputStream(),"utf-8",url);
+        String object = doc.text();
+        JSONObject jsonObject = JSONObject.parseObject(object);
+        JSONObject result = JSONObject.parseObject(jsonObject.get("result").toString());
+        System.out.println(result);
+        return null;
     }
 
     private static void parseImgUrl(String searcheName,Integer page,Integer totalPage) throws Exception {
@@ -49,9 +53,9 @@ public class PickStarter {
         List<Results> resultsList = JSONArray.parseArray(results, Results.class);
         circleDownload(resultsList,searcheName);
         if (page < 20) {
-           page = page +1;
-           parseImgUrl(searcheName,page,totalPage);
-       }
+            page = page +1;
+            parseImgUrl(searcheName,page,totalPage);
+        }
         System.out.println(resultsList);
     }
 
